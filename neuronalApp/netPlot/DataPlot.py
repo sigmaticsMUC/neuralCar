@@ -11,3 +11,4 @@ def data_plot(*args):
         plt.legend(loc='upper left', frameon=False)
 
     plt.show()
+    print("Hello")
