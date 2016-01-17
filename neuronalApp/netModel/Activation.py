@@ -9,10 +9,11 @@ def identity(signals):
 
 def logistic(signals):
 
+    # also called sigmoid
     sum = math.fsum(signals)
     return ( 1/( 1 + math.pow( e, -1*sum) ) )
 
 def gaussian(signals):
 
     sum = math.fsum(signals)
-    return math.pow( e, -1 * sum^2 )
+    return math.pow( e, -1 * sum * sum )
