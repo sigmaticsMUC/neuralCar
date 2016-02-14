@@ -10,10 +10,7 @@ Train   - Neural network code written in Python to train with backpropagation.
 Camera  - To take images of the road ahead and pass them on to the neural  
           network for processing.
 ## Idea for the vehicle simulation.
-<<<<<<< HEAD
-
-=======
 Neural network learns how to drive a simulated 2D car. 
 Input: Location and state related input of car simulation
-Ooutput: Action which moves the car to desired state
->>>>>>> 020be063b0423f8085349c2aab17c6fdc20a186f
+Output: Action which moves the car to desired state
+
