@@ -9,3 +9,4 @@ Arduino - Allows the driver to send commands to the car via a serial interface.
 Train   - Neural network code written in Python to train with backpropagation.  
 Camera  - To take images of the road ahead and pass them on to the neural  
           network for processing.
+## Idea for the vehicle simulation.
