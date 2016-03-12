@@ -1,45 +1,47 @@
 from CarPlotter import CarPlotter
 from Field import Field
 from Car import Car
-from Events import Events
+from EventExecutor import EventExecutor
 from thread import start_new_thread
 import numpy as np
 import threading
 import time
+from StateReader import StateReader
 
 
+simfile = "../../external/data.json"
+state_reader = StateReader(simfile)
+state_reader.read()
+car, field, event = state_reader.getState()
 
-
-car = Car(100, 200, 1)
-field = Field("../../external/Track2.png", car)
-event = Events()
-
-
-
+# this function will be started in a thread
+# and it will be responsible for reading NN output and passing it to the EventExecutor object
 def actions():
 
-    print "Started"
-    global event
     time.sleep(2)
-    for i in range(10):
+    #pass
+    while True:
         time.sleep(0.1)
-        event.turnright()
+        while not event.RUNNING:
+            pass
+        distance = field.getBoundaryDistanceSides()
+        print distance
+    #    if distance[0] > distance[1]:
+    #        event.turnleft()
+    #    elif distance[0] < distance[1]:
+    #        event.turnright()
+    #    else:
+    #        pass
 
-    time.sleep(1)
-
-    for i in range(50):
-        time.sleep(0.1)
-        event.turnleft()
-
-    print event.ANGLE
 
 
-try:
+def start_simulation():
 
-    t=threading.Thread(target=actions)
-    t.daemon = True  # set thread to daemon ('ok' won't be printed in this case)
-    t.start()
-except:
-    print "Error: unable to start thread"
+    try:
+        t=threading.Thread(target=actions)
+        t.daemon = True  # set thread to daemon ('ok' won't be printed in this case)
+        t.start()
+    except:
+        print "Error: unable to start thread"
 
-pltobj = CarPlotter(field, event)
+    pltobj = CarPlotter(field, event)
