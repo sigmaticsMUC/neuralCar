@@ -20,23 +20,45 @@ last = 0
 def actions():
 
     time.sleep(2.5)
-    #pass
+    pass
+    #'''
     while True:
-        time.sleep(0.25)
+        time.sleep(0.05)
         while not event.RUNNING:
             pass
         front = field.getBoundaryDistanceFront()
         distance = field.getBoundaryDistanceSides()
-        print distance
-        print front
-        print "#######"
-        if distance[0] < distance[1] and front < (distance[0]+distance[1]):
+        #print front
+        if distance[0] < distance[1] and front < 0.75*(distance[0]+distance[1]):
             event.turnleft()
-        elif distance[0] > distance[1] and front < (distance[0]+distance[1]):
+        elif distance[0] > distance[1] and front < 0.75*(distance[0]+distance[1]):
             event.turnright()
         else:
             pass
+    #'''
 
+
+def simulate():
+
+    time.sleep(2)
+    while True:
+        time.sleep(0.05)
+        if event.RUNNING:
+            dx = np.cos(event.ANGLE)
+            dy = np.sin(event.ANGLE)
+
+            car.update_direction(dx, dy)
+
+            nextcarpos = car.get_next_pos()
+
+            validpos = field.checkpos(nextcarpos[0], nextcarpos[1])
+
+            if validpos:
+                print "HI"
+                car.move()
+            else:
+                print "Stop"
+                event.RUNNING = False
 
 
 
@@ -47,8 +69,15 @@ def start_simulation():
     try:
         t=threading.Thread(target=actions)
         t.daemon = True  # set thread to daemon ('ok' won't be printed in this case)
+
+        g=threading.Thread(target=simulate)
+        g.daemon = True
+
         t.start()
+        g.start()
+
+        pltobj = CarPlotter(field, event)
+
     except:
         print "Error: unable to start thread"
 
-    pltobj = CarPlotter(field, event)

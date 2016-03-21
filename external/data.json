@@ -1,12 +1,12 @@
 {
 
-  "car_x": 450,
-  "car_y": 400,
+  "car_x": 650,
+  "car_y": 150,
   "car_dx": 1,
   "car_dy": -0.25,
   "car_velocity": 1,
   "step_size": 0.1,
   "resolution": 1,
-  "field_path": "../../external/Track1.png"
+  "field_path": "../../external/Track6.png"
 
 }

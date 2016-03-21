@@ -57,24 +57,10 @@ class CarPlotter:
         self.canvas.create_window(10, 65, anchor=NW, window=self.stop_button)
 
     def simulate(self):
-        if self.event.RUNNING:
-            dx = np.cos(self.event.ANGLE)
-            dy = np.sin(self.event.ANGLE)
+        self.canvas.create_line(self.car.position, self.car.get_next_pos(), fill = "blue", width = 2)
+        self.canvas.coords(self.carimg, self.car.position[0]-10, self.car.position[1]-10, self.car.position[0]+10, self.car.position[1]+10)
+        self.root.after(50, self.simulate)
 
-            self.car.update_direction(dx, dy)
-
-            nextcarpos = self.car.get_next_pos()
-
-            validpos = self.field.checkpos(nextcarpos[0], nextcarpos[1])
-
-            if validpos:
-                self.canvas.create_line(self.car.position, nextcarpos, fill = "blue", width = 2)
-                self.car.move()
-                self.canvas.move(self.carimg, dx, dy)
-                self.root.after(50, self.simulate)
-            else:
-                print "CARPOS: " + str(self.car.position)
-                self.event.RUNNING = False
 
 
     def switch_active_state(self):
