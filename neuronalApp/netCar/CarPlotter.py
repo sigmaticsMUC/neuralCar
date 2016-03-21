@@ -73,6 +73,7 @@ class CarPlotter:
                 self.canvas.move(self.carimg, dx, dy)
                 self.root.after(50, self.simulate)
             else:
+                print "CARPOS: " + str(self.car.position)
                 self.event.RUNNING = False
 
 

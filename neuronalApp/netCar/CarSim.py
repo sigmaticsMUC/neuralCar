@@ -13,25 +13,32 @@ simfile = "../../external/data.json"
 state_reader = StateReader(simfile)
 state_reader.read()
 car, field, event = state_reader.getState()
+last = 0
 
 # this function will be started in a thread
 # and it will be responsible for reading NN output and passing it to the EventExecutor object
 def actions():
 
-    time.sleep(2)
+    time.sleep(2.5)
     #pass
     while True:
-        time.sleep(0.1)
+        time.sleep(0.25)
         while not event.RUNNING:
             pass
+        front = field.getBoundaryDistanceFront()
         distance = field.getBoundaryDistanceSides()
         print distance
-    #    if distance[0] > distance[1]:
-    #        event.turnleft()
-    #    elif distance[0] < distance[1]:
-    #        event.turnright()
-    #    else:
-    #        pass
+        print front
+        print "#######"
+        if distance[0] < distance[1] and front < (distance[0]+distance[1]):
+            event.turnleft()
+        elif distance[0] > distance[1] and front < (distance[0]+distance[1]):
+            event.turnright()
+        else:
+            pass
+
+
+
 
 
 

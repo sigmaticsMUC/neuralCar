@@ -15,6 +15,9 @@ class Field:
 
     def checkpos(self, x, y):
 
+       #(225.56861672284984, 312.8054753966918)
+
+
        # print "Current" + str(self.car.position)
        # print "Checking pos at: " + str(x) + ", " + str(y)
        # print "++++++++++++++"
@@ -27,7 +30,9 @@ class Field:
 
         xtrunc = math.trunc(x)
         ytrunc = math.trunc(y)
-        if self.pixels[xCeil,yCeil] == (0,0,0) or self.pixels[xtrunc, ytrunc] == (0,0,0) or self.pixels[xCur, yCur] == (0,0,0):
+
+        if self.pixels[xCeil,yCeil] == (0,0,0) or self.pixels[xtrunc, ytrunc] == (0,0,0)\
+                or self.pixels[xCeil, ytrunc] == (0,0,0) or self.pixels[xtrunc, yCeil] == (0,0,0):
             return False
         else:
             return True
@@ -48,8 +53,18 @@ class Field:
         # x = x * cos(90) - y * sin(90)
         # y = x * sin(90) - y * cos(90)
 
-        leftVector = (x * np.cos(np.pi/4) - y * np.sin(np.pi/4), x * np.sin(-np.pi/4) - y * np.cos(-np.pi/4))
-        rightVector = (-leftVector[0], -leftVector[1])
+        leftVector = (x * np.cos(np.pi/2) - y * np.sin(np.pi/2), x * np.sin(np.pi/2) - y * np.cos(np.pi/2))
+        rightVector = (x * np.cos(3*np.pi/2) - y * np.sin(3*np.pi/2), x * np.sin(3*np.pi/2) - y * np.cos(3*np.pi/2))
+
+
+        #leftVector = np.rot90(self.car.direction)
+        #rightVector = np.rot90(np.rot90(leftVector))
+
+        #print "Front " + str(self.car.direction)
+        #print "Right " + str(rightVector)
+        #print "Left " + str(leftVector)
+        #print "#############"
+
 
         rCounter = 0
         lCounter = 0

@@ -6,7 +6,7 @@ class EventExecutor:
         self.RUNNING = True
 
     def turnleft(self):
-        self.ANGLE -= self.STEP
+        self.ANGLE += self.STEP
 
     def turnright(self):
-        self.ANGLE += self.STEP
+        self.ANGLE -= self.STEP
