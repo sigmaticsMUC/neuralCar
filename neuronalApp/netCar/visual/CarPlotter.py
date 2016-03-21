@@ -1,11 +1,5 @@
-from Tkinter import *
 from PIL import ImageTk
-import numpy as np
-import Field
-import Car
-from EventExecutor import  EventExecutor
-import Image
-import sys
+from Tkinter import *
 
 
 class CarPlotter:

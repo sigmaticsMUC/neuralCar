@@ -1,8 +1,10 @@
 import json
-from Car import Car
-from Field import Field
 import numpy as np
-from EventExecutor import EventExecutor
+
+from neuronalApp.netCar.simCar.Car import Car
+from neuronalApp.netCar.simCar.Field import Field
+
+from neuronalApp.netCar.abstractNetCar.EventExecutor import EventExecutor
 
 
 class StateReader:
@@ -15,6 +17,7 @@ class StateReader:
     FIELDPATH = "field_path"
     STEPSIZE = "step_size"
     RESOLUTION = "resolution"
+    REACTIONTIME = "reaction_time"
 
     def __init__(self, simfile):
 
@@ -24,7 +27,7 @@ class StateReader:
         self.velocity = 0
         self.field_path = ""
         self.step_size = 0
-        self.resolution = 0
+        self.reaction_time = 0
 
     def read(self):
 
@@ -36,15 +39,15 @@ class StateReader:
         self.velocity = data[self.CARVELOCITY]
         self.field_path = str(data[self.FIELDPATH])
         self.step_size = data[self.STEPSIZE]
-        self.resolution = data[self.RESOLUTION]
+        self.reaction_time = data[self.REACTIONTIME]
 
     def getState(self):
 
         car = Car(self.position[0], self.position[1], self.velocity)
         normaldirection = self.normalizeDirection(self.direction[0], self.direction[1])
         car.update_direction(normaldirection[0], normaldirection[1])
-        field = Field(self.field_path, car, self.resolution)
-        eventhandler = EventExecutor(self.calcAngle(self.direction[0], self.direction[1]), self.step_size)
+        field = Field(self.field_path, car)
+        eventhandler = EventExecutor(self.calcAngle(self.direction[0], self.direction[1]), self.step_size, self.reaction_time)
         return car, field, eventhandler
 
     def calcAngle(self, dx, dy):

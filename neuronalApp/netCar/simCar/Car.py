@@ -1,4 +1,7 @@
-class Car:
+from neuronalApp.netCar.abstractNetCar.abstractVehicle import abstractVehicle
+
+
+class Car(abstractVehicle):
 
     color = (255, 0, 0)
 

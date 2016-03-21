@@ -1,34 +1,30 @@
-from CarPlotter import CarPlotter
-from Field import Field
-from Car import Car
-from EventExecutor import EventExecutor
-from thread import start_new_thread
 import numpy as np
 import threading
 import time
-from StateReader import StateReader
 
+from neuronalApp.netCar.dataIO.StateReader import StateReader
+from neuronalApp.netCar.visual.CarPlotter import CarPlotter
 
-simfile = "../../external/data.json"
+simfile = "../../external/simfile/data.json"
 state_reader = StateReader(simfile)
 state_reader.read()
 car, field, event = state_reader.getState()
-last = 0
 
 # this function will be started in a thread
 # and it will be responsible for reading NN output and passing it to the EventExecutor object
 def actions():
 
+
     time.sleep(2.5)
     pass
     #'''
     while True:
-        time.sleep(0.05)
+        time.sleep(event.REACTIONTIME)
         while not event.RUNNING:
             pass
         front = field.getBoundaryDistanceFront()
         distance = field.getBoundaryDistanceSides()
-        #print front
+        print distance
         if distance[0] < distance[1] and front < 0.75*(distance[0]+distance[1]):
             event.turnleft()
         elif distance[0] > distance[1] and front < 0.75*(distance[0]+distance[1]):
@@ -54,7 +50,6 @@ def simulate():
             validpos = field.checkpos(nextcarpos[0], nextcarpos[1])
 
             if validpos:
-                print "HI"
                 car.move()
             else:
                 print "Stop"

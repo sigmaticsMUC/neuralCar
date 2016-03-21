@@ -1,6 +1,5 @@
-import neuronalApp.netCar.CarSim as CarSim
-import sqlite3
-connection = sqlite3.connect("lokaledb.db")
+import neuronalApp.netCar.simCar.CarSim as CarSim
+
 
 
 CarSim.start_simulation()

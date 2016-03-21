@@ -6,7 +6,7 @@
   "car_dy": -0.25,
   "car_velocity": 1,
   "step_size": 0.1,
-  "resolution": 1,
-  "field_path": "../../external/Track6.png"
+  "reaction_time": 0.05,
+  "field_path": "../../external/tracks/Track7.jpg"
 
 }

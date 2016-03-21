@@ -1,26 +1,18 @@
-from PIL import Image
-import numpy as np
-import Car
 import math
+import numpy as np
+from PIL import Image
+
 
 class Field:
 
-    def __init__(self, field_path, car, resolution):
+    def __init__(self, field_path, car):
 
         self.field_path = field_path
         self.field_image = self.read_image(path=field_path)
         self.car = car
         self.pixels = self.field_image.load()
-        self.resolution = resolution
 
     def checkpos(self, x, y):
-
-       #(225.56861672284984, 312.8054753966918)
-
-
-       # print "Current" + str(self.car.position)
-       # print "Checking pos at: " + str(x) + ", " + str(y)
-       # print "++++++++++++++"
 
         xCeil = math.ceil(x)
         yCeil = math.ceil(y)
@@ -50,33 +42,20 @@ class Field:
         xP = self.car.position[0]
         yP = self.car.position[1]
 
-        # x = x * cos(90) - y * sin(90)
-        # y = x * sin(90) - y * cos(90)
-
         leftVector = (x * np.cos(np.pi/2) - y * np.sin(np.pi/2), x * np.sin(np.pi/2) - y * np.cos(np.pi/2))
         rightVector = (x * np.cos(3*np.pi/2) - y * np.sin(3*np.pi/2), x * np.sin(3*np.pi/2) - y * np.cos(3*np.pi/2))
-
-
-        #leftVector = np.rot90(self.car.direction)
-        #rightVector = np.rot90(np.rot90(leftVector))
-
-        #print "Front " + str(self.car.direction)
-        #print "Right " + str(rightVector)
-        #print "Left " + str(leftVector)
-        #print "#############"
-
 
         rCounter = 0
         lCounter = 0
 
-        rx = self.resolution * rightVector[0]
-        ry = self.resolution * rightVector[1]
+        rx = rightVector[0]
+        ry = rightVector[1]
 
         while self.checkpos(xP+rx*rCounter, yP+ry*rCounter):
             rCounter +=1
 
-        lx = self.resolution * leftVector[0]
-        ly = self.resolution * leftVector[1]
+        lx = leftVector[0]
+        ly = leftVector[1]
 
         while self.checkpos(xP+lx*lCounter, yP+ly*lCounter):
             lCounter += 1
@@ -91,8 +70,8 @@ class Field:
 
     def getBoundaryDistanceFront(self):
 
-        x = self.resolution * self.car.direction[0]
-        y = self.resolution * self.car.direction[1]
+        x = self.car.direction[0]
+        y = self.car.direction[1]
 
         xP = self.car.position[0]
         yP = self.car.position[1]
@@ -107,5 +86,5 @@ class Field:
         return np.sqrt(frontVector[0]**2 + frontVector[1]**2)
 
 
-    def pixel_toCons(self):
+    def pixel_size_toCons(self):
         print self.field_image.size
