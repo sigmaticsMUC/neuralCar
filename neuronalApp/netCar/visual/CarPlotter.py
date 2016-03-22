@@ -20,6 +20,8 @@ class CarPlotter:
         image = ImageTk.PhotoImage(file = self.path)
         self.trackimage = self.canvas.create_image(10, 10, image = image, anchor = NW)
 
+        self.coord_label = Label(self.root, text="x: " + str(self.car.position[0]) + " ,  y: " + str(self.car.position[1]))
+        self.coord_label.pack()
         #image2 = Image.open("car.png")
         #self.trackimage2 = self.canvas.create_image(100, 100, image = image3, anchor = NW)
 
@@ -53,6 +55,7 @@ class CarPlotter:
     def simulate(self):
         self.canvas.create_line(self.car.position, self.car.get_next_pos(), fill = "blue", width = 2)
         self.canvas.coords(self.carimg, self.car.position[0]-10, self.car.position[1]-10, self.car.position[0]+10, self.car.position[1]+10)
+        self.coord_label.config(text="x: " + str(self.car.position[0]) + " ,  y: " + str(self.car.position[1]))
         self.root.after(50, self.simulate)
 
 

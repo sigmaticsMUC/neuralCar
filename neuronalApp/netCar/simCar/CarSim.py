@@ -36,9 +36,12 @@ def actions():
 
 def simulate():
 
+    exectuion_factor = 0.5
+    velocity_time_step = exectuion_factor / car.velocity
+
     time.sleep(2)
     while True:
-        time.sleep(0.05)
+        time.sleep(velocity_time_step)
         if event.RUNNING:
             dx = np.cos(event.ANGLE)
             dy = np.sin(event.ANGLE)
