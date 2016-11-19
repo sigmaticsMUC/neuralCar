@@ -7,6 +7,7 @@
   "car_velocity": 100,
   "step_size": 0.1,
   "reaction_time": 0.005,
-  "field_path": "../../external/tracks/Track6.png"
+  "field_path": "../../external/tracks/Track6.png",
+  "track_data": true
 
 }

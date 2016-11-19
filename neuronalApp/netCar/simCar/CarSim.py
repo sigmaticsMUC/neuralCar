@@ -10,13 +10,12 @@ state_reader = StateReader(simfile)
 state_reader.read()
 car, field, event = state_reader.getState()
 
+
 # this function will be started in a thread
 # and it will be responsible for reading NN output and passing it to the EventExecutor object
 def actions():
 
-
     time.sleep(2.5)
-    pass
     #'''
     while True:
         time.sleep(event.REACTIONTIME)
@@ -57,9 +56,6 @@ def simulate():
             else:
                 print "Stop"
                 event.RUNNING = False
-
-
-
 
 
 def start_simulation():

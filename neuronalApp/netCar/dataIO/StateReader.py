@@ -18,6 +18,7 @@ class StateReader:
     STEPSIZE = "step_size"
     RESOLUTION = "resolution"
     REACTIONTIME = "reaction_time"
+    TRACKING = "track_data"
 
     def __init__(self, simfile):
 
@@ -28,6 +29,7 @@ class StateReader:
         self.field_path = ""
         self.step_size = 0
         self.reaction_time = 0
+        self.tracking = False
 
     def read(self):
 
@@ -40,6 +42,7 @@ class StateReader:
         self.field_path = str(data[self.FIELDPATH])
         self.step_size = data[self.STEPSIZE]
         self.reaction_time = data[self.REACTIONTIME]
+        self.tracking = data[self.TRACKING]
 
     def getState(self):
 
@@ -47,7 +50,8 @@ class StateReader:
         normaldirection = self.normalizeDirection(self.direction[0], self.direction[1])
         car.update_direction(normaldirection[0], normaldirection[1])
         field = Field(self.field_path, car)
-        eventhandler = EventExecutor(self.calcAngle(self.direction[0], self.direction[1]), self.step_size, self.reaction_time)
+        eventhandler = EventExecutor(self.calcAngle(self.direction[0], self.direction[1]),
+                                     self.step_size, self.reaction_time, self.tracking)
         return car, field, eventhandler
 
     def calcAngle(self, dx, dy):
